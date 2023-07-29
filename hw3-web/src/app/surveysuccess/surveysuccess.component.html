@@ -1,0 +1,46 @@
+<!--
+  SWE-642 group : Anjali Sharma, Rachna Latkar, Bantwal Shreyas Mallya, Govind Sharma
+-->
+<div class="container-fluid">
+
+  <h2 class="text-capitalize bg-info text-center">List of Surveys</h2>
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  <caption class="text-capitalize">List of Surveys submitted by visiting students at <a target="_blank" href="https://cs.gmu.edu"><abbr title="GMU CS Department">GMU</abbr></a></caption>
+    <thead>
+        <tr>
+          <!-- <th>Id</th> -->
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zipcode</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Date of Survey</th>
+          <th>Most Liked</th>
+          <th>Interest Source</th>
+          <th>Likely To Recommend</th>
+          <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let survey of surveyFromAPI">
+        <!-- <td>{{ survey.id }}</td> -->
+        <td>{{ survey.firstName }}</td>
+        <td>{{ survey.lastName }}</td>
+        <td>{{ survey.streetAddr }}</td>
+        <td>{{ survey.city }}</td>
+        <td>{{ survey.state }}</td>
+        <td>{{ survey.zip }}</td>
+        <td>{{ survey.phone }}</td>
+        <td>{{ survey.email }}</td>
+        <td>{{ survey.dtSurvey }}</td>
+        <td>{{ survey.mostLiked }}</td>
+        <td>{{ survey.interestSource }}</td>
+        <td>{{ survey.likelyToRecommend }}</td>
+        <td>{{ survey.comments }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

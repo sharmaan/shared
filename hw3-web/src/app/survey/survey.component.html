@@ -1,0 +1,179 @@
+<!--
+SWE-642 group : Anjali Sharma, Rachna Latkar, Bantwal Shreyas Mallya, Govind Sharma
+controller Angular from HTML template for survey form
+ -->
+<div class="container-fluid">
+  <h1><span class="gmugreen text-uppercase" >GMU CS Department - Student Survey form</span></h1>
+  <em>We value your input. Please take 2-3 minutes to fill out the survery form. It will help us further improve our site and services.</em><br/><br/>
+
+  <form #surveyform="ngForm" (ngSubmit)="postsurvey()">
+    <div class="text-danger" > {{msg}}</div>
+  <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="firstName">First Name:</label>
+        <input type="text" class="form-control" id="firstName" required autofocus  placeholder="First Name" name="firstName" [(ngModel)]="survey.firstName" #firstName="ngModel"
+        [class.is-invalid]="firstName.invalid && firstName.touched"
+        >
+        <small class="text-danger" [class.d-none]="firstName.valid || firstName.untouched" >First Name is required field</small>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="lastName">Last Name:</label>
+        <input type="text" class="form-control" id="lastName"  required placeholder="Last Name" name="lastName" [(ngModel)]="survey.lastName"  #lastName="ngModel"
+        [class.is-invalid]="lastName.invalid && lastName.touched">
+        <small class="text-danger" [class.d-none]="lastName.valid || lastName.untouched" >Last Name is required field</small>
+      </div>
+    </div>
+     <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputAddress">Street Address:</label>
+        <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="1234 Hills Dr" required [(ngModel)]="survey.streetAddr"  #streetAddr="ngModel"
+        [class.is-invalid]="streetAddr.invalid && streetAddr.touched">
+        <small class="text-danger" [class.d-none]="streetAddr.valid || streetAddr.untouched" >Street Address is required field</small>
+      </div>
+     </div>
+  <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputCity">City:</label>
+        <input type="text" class="form-control" id="inputCity" name="inputCity" required [(ngModel)]="survey.city"   #city="ngModel"
+        [class.is-invalid]="city.invalid && city.touched">
+        <small class="text-danger" [class.d-none]="city.valid || city.untouched" >City is required field</small>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputState">State:</label>
+         <select id="inputState" name="inputState" class="form-control" required [(ngModel)]="survey.state"   #state="ngModel"
+         [class.is-invalid]="state.invalid && state.touched">
+        <option value="">Choose a state...</option>
+        <option value="AL">Alabama</option>
+	      <option value="AK">Alaska</option>
+	      <option value="AZ">Arizona</option>
+	      <option value="AR">Arkansas</option>
+	      <option value="CA">California</option>
+	      <option value="CO">Colorado</option>
+	      <option value="CT">Connecticut</option>
+	      <option value="DE">Delaware</option>
+	      <option value="DC">District Of Columbia</option>
+	      <option value="FL">Florida</option>
+	      <option value="GA">Georgia</option>
+	      <option value="HI">Hawaii</option>
+	      <option value="ID">Idaho</option>
+	      <option value="IL">Illinois</option>
+	      <option value="IN">Indiana</option>
+	      <option value="IA">Iowa</option>
+	      <option value="KS">Kansas</option>
+	      <option value="KY">Kentucky</option>
+	      <option value="LA">Louisiana</option>
+	      <option value="ME">Maine</option>
+	      <option value="MD">Maryland</option>
+	      <option value="MA">Massachusetts</option>
+	      <option value="MI">Michigan</option>
+	      <option value="MN">Minnesota</option>
+	      <option value="MS">Mississippi</option>
+	      <option value="MO">Missouri</option>
+	      <option value="MT">Montana</option>
+	      <option value="NE">Nebraska</option>
+	      <option value="NV">Nevada</option>
+	      <option value="NH">New Hampshire</option>
+	      <option value="NJ">New Jersey</option>
+	      <option value="NM">New Mexico</option>
+	      <option value="NY">New York</option>
+	      <option value="NC">North Carolina</option>
+	      <option value="ND">North Dakota</option>
+	      <option value="OH">Ohio</option>
+	      <option value="OK">Oklahoma</option>
+	      <option value="OR">Oregon</option>
+	      <option value="PA">Pennsylvania</option>
+	      <option value="RI">Rhode Island</option>
+	      <option value="SC">South Carolina</option>
+	      <option value="SD">South Dakota</option>
+	      <option value="TN">Tennessee</option>
+	      <option value="TX">Texas</option>
+	      <option value="UT">Utah</option>
+	      <option value="VT">Vermont</option>
+	      <option value="VA">Virginia</option>
+	      <option value="WA">Washington</option>
+	      <option value="WV">West Virginia</option>
+	      <option value="WI">Wisconsin</option>
+	      <option value="WY">Wyoming</option>
+	     </select>
+       <small class="text-danger" [class.d-none]="state.valid || state.untouched" >State is required field</small>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputZip">Zip</label>
+        <input type="text" class="form-control" id="inputZip" name="inputZip" required  [(ngModel)]="survey.zip"   #zip="ngModel"
+        [class.is-invalid]="zip.invalid && zip.touched">
+        <small class="text-danger" [class.d-none]="zip.valid || zip.untouched" >Zipcode is required field</small>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Email:</label>
+        <input type="email" class="form-control" id="inputEmail4" name="inputEmail4" placeholder="Email e.g.name@domain.com" required pattern="[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$" [(ngModel)]="survey.email" #email="ngModel"
+        [class.is-invalid]="email.invalid && email.touched"
+        >
+        <div *ngIf="email.errors && (email.invalid && email.touched)">
+          <small class="text-danger" *ngIf="email.errors.required">Email Id is required field</small>
+          <small class="text-danger"  *ngIf="email.errors.pattern">Enter the valid Email ID </small>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="homePhone">Phone:</label>
+        <input type="tel" class="form-control" id="homePhone" name="homePhone" placeholder="1234567890"  pattern="[0-9]{3}[0-9]{3}[0-9]{4}"  required [(ngModel)]="survey.phone"
+           #phone="ngModel"   [class.is-invalid]="phone.invalid && phone.touched">
+        <div *ngIf="phone.errors && (phone.invalid && phone.touched)">
+          <small class="text-danger" *ngIf="phone.errors.required">Phone is required field</small>
+          <small class="text-danger"  *ngIf="phone.errors.pattern">Enter valid phone format in 10 digits e.g. 1234567890 </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+         <div class="form-group col-md-6">
+        <label for="date">Date of Survey:</label>
+        <input type="date" class="form-control" id="date" name="date" min="-2" max="0" placeholder="Use datepicker to select valid date."  onkeydown="return false" required  [(ngModel)]="survey.dtSurvey"   #dtSurvey="ngModel"
+        [class.is-invalid]="dtSurvey.invalid && dtSurvey.touched">
+        <small class="text-danger" [class.d-none]="dtSurvey.valid || dtSurvey.untouched" >Date of Survey is required field. Use datepicker to select valid date. <br/></small>
+        <small id="dateHelp" class="form-text text-muted">Use datepicker to select valid date.</small>
+      </div>
+    </div>
+
+    <fieldset class="form-group">
+       <div class="row">
+        <legend class="col-form-label col-sm-2 pt-0">What did you like most about the campus:</legend>
+        <div class="col-sm-10" >
+          <div class="form-check"  *ngFor="let x of mostLiked">
+            <input class="form-check-input" type="checkbox" name="gridCheckbox" id="gridCheckbox1" [value]="x.value" [checked]="x.select" (change)="onChange($event)" >
+            <label class="form-check-label" for="gridCheckbox1">{{x.name}}</label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="form-group" >
+      <div class="row">
+        <legend class="col-form-label col-sm-2 pt-0">How did you hear about the university:</legend>
+        <div class="col-sm-10">
+          <div class="form-check"  *ngFor="let x of interestSource">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" [value]="x.value" [checked]="x.select" (change)="onChangeSource($event)" >
+            <label class="form-check-label" for="gridRadios1">{{x.name}}</label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <div class="form-group">
+      <label for="likelyToRecommend">Would you recommend <em><a href="https://www.gmu.edu" target="_blank" style="text-decoration: underline;">GMU</a></em> to other prospective students:</label>
+      <select class="form-control col-sm-4" id="likelyToRecommend" name="likelyToRecommend" [(ngModel)]="survey.likelyToRecommend">
+        <option>Very Likely</option>
+        <option>Likely</option>
+        <option>UnLikely</option>
+      </select>
+    </div>
+     <div class="form-group">
+      <label for="exampleFormControlTextarea1">Additional Comments:</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" name="exampleFormControlTextarea1" rows="3"  [(ngModel)]="survey.comments"></textarea>
+    </div>
+     <button type="submit" [disabled]="surveyform.form.invalid" class="btn btn-primary">Submit Feedback</button>&nbsp;&nbsp;
+    <button type="reset" class="btn btn-info" (click)="clear()">Clear</button>
+    <div class="text-danger" > {{msg}}</div>
+  </form>
+  <a [routerLink]="['/surveysuccess']"  style="float: left; margin:5px;padding: 5px; font-weight: bolder;">List All Surveys</a>
+</div>
