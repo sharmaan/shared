@@ -1,0 +1,36 @@
+pipeline {
+  agent any
+  environment {
+    DOCKER_PASS = credentials('docker-pass')
+  }
+  stages {
+    stage('Checkout Repo') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Build and Push') {
+      steps {
+        sh 'jar -cvf swe-645-student-survey.war index.html style.css'
+        sh 'docker build --tag episcopomark/swe-645-student-survey:${BUILD_NUMBER} .'
+        sh "docker login -u episcopomark -p ${DOCKER_PASS}"
+        sh 'docker push episcopomark/swe-645-student-survey:${BUILD_NUMBER}'
+      }
+      post {
+        success {
+          archiveArtifacts artifacts: '*.war', fingerprint: true
+        }
+      }
+    }
+    stage('Deploy to Kubernetes') {
+      steps {
+        script {
+             sh 'ls ../../.kube'
+             sh 'pwd'
+             sh 'export KUBECONFIG=../../.kube/config'
+             sh 'kubectl set image deployment/swe645-hw2 container-0=episcopomark/swe-645-student-survey:${BUILD_NUMBER} -n swe645'
+        }
+      }
+    }
+  }
+}
